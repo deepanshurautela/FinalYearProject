@@ -13,7 +13,7 @@ app.config['SECRET_KEY'] = os.urandom(10)
 
 @app.route('/')
 def index():
-	return redirect("/search/Oprah/10")
+	return render_template('home.html')
 
 @app.route('/verifier/')
 def verify():
