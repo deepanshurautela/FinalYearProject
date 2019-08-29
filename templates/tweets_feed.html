@@ -22,26 +22,46 @@
 		            text: "{{i.text}}"
 		        },
 		        success: function(result) {
+		        	function randomNumber(min, max) {  
+    				min = Math.ceil(min); 
+    				max = Math.floor(max); 
+    				return Math.floor(Math.random() * (max - min + 1)) + min; 
+					} 
 						var ctx = document.getElementById('{{i.id}}c').getContext('2d');
+						var json_data = JSON.parse(result)
+						var data_label = new Array();
+						var data_data = new Array();
+						var sum = 0;
+						for(key in json_data.attributeScores){
+							data_label.push(key)
+							var num = json_data.attributeScores[key].summaryScore.value*100;
+							data_data.push(num);
+
+						}  
+						var red = randomNumber(0,255); 
+						var green = randomNumber(0,255); 
+						var blue = randomNumber(0,255);
+
+						var rgb = 'rgb(' + red + ',' + green + ',' + blue + ')';
+
 						var chart = new Chart(ctx, {
 					    // The type of chart we want to create
 					    type: 'pie',
 
 					    // The data for our dataset
 					    data: {
-					        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+					        labels: data_label,
 					        datasets: [{
-					            label: 'My First dataset',
-					            backgroundColor: 'rgb(255, 99, 132)',
-					            borderColor: 'rgb(255, 99, 132)',
-					            data: [0, 10, 5, 2, 20, 30, 45]
+					            label: 'Chart',
+					            backgroundColor: rgb,
+					            borderColor: 'rgb(255, 255, 255)',
+					            data: data_data
 					        }]
 					    },
 
 					    // Configuration options go here
 					    options: {}
 					});
-						//alert(result);
 		        },
 		        error: function(result) {
 		            alert('error');

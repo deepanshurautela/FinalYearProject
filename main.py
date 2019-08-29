@@ -79,6 +79,7 @@ def gc_analyse():
 	else:
 		data = request.args.get('text')
 		data = get_sent_val(data)
+		print(data)
 		return data
 
 @app.route('/login')
